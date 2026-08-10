@@ -13,8 +13,8 @@ export const siteConfig: SiteConfig = {
 	lang: SITE_LANG,
 
 	themeColor: {
-		hue: 240, // 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
-		fixed: false, // 对访问者隐藏主题色选择器
+		hue: 55, // 浅橙色
+		fixed: true, // 固定站点主题色，避免浏览器中保存的旧色相覆盖配置
 	},
 
 	// 特色页面开关配置（关闭未使用的页面有助于提升 SEO，关闭后请记得在 navbarConfig 中移除对应链接）
@@ -36,8 +36,8 @@ export const siteConfig: SiteConfig = {
 		mode: "text-icon",
 		// 顶栏标题文本
 		text: "XueJie 的博客",
-		// 顶栏标题图标路径，默认使用 public/assets/home/home.webp
-		icon: "assets/home/home.webp",
+		// 与浏览器 favicon 使用同一张图片
+		icon: "/favicon/elysia.jpg",
 		// 网站Logo图片路径
 		logo: "assets/home/default-logo.webp",
 	},
