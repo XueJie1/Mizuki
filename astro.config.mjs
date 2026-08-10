@@ -49,17 +49,22 @@ import { remarkWikiLink } from "./src/plugins/remark-wiki-link.mjs";
 import { resolveFontMode } from "./src/utils/fontMode.ts";
 
 const customFontsEnabled = resolveFontMode(siteConfig) === "custom";
+const disabledFeaturePagePrefixes = [
+	!siteConfig.featurePages.anime && "/anime/",
+	!siteConfig.featurePages.diary && "/diary/",
+	!siteConfig.featurePages.friends && "/friends/",
+	!siteConfig.featurePages.projects && "/projects/",
+	!siteConfig.featurePages.skills && "/skills/",
+	!siteConfig.featurePages.timeline && "/timeline/",
+	!siteConfig.featurePages.albums && "/albums/",
+	!siteConfig.featurePages.devices && "/devices/",
+	!siteConfig.featurePages.aiTools && "/ai-tools/",
+].filter(Boolean);
 
 // https://astro.build/config
 export default defineConfig({
 	fonts: customFontsEnabled
 		? [
-				{
-					name: "JetBrains Mono",
-					cssVariable: "--font-jetbrains-mono",
-					provider: fontProviders.fontsource(),
-					styles: ["normal", "italic"],
-				},
 				{
 					name: "ZenMaruGothic-Medium",
 					cssVariable: "--font-body",
@@ -204,7 +209,14 @@ export default defineConfig({
 		svelte({
 			preprocess: vitePreprocess(),
 		}),
-		sitemap(),
+		sitemap({
+			filter: (page) => {
+				const pathname = new URL(page).pathname;
+				return !disabledFeaturePagePrefixes.some((prefix) =>
+					pathname.startsWith(prefix),
+				);
+			},
+		}),
 		mdx(),
 	],
 	markdown: {

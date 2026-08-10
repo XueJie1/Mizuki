@@ -1,6 +1,6 @@
 ---
 title: 在 Android 平板上使用 Termux 和 Visual Studio Code 网页版，实现便携编程（Gemini 润色版）
-date: 2025-11-01 22:15:38
+published: 2025-11-01T22:15:38+08:00
 tags: ["编程", "安卓"]
 ---
 

@@ -1,5 +1,7 @@
 ---
 title: Hello World
+published: 2025-10-31
+draft: true
 ---
 欢迎使用 [Hexo](https://hexo.io/)! 这是你的第一个稿件，点击 [documentation](https://hexo.io/docs/) 以查看更多。如果你在使用 Hexo 时遇到问题，请点击 [troubleshooting](https://hexo.io/docs/troubleshooting.html)或者在 [GitHub](https://github.com/hexojs/hexo/issues) 上询问我。
 

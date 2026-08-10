@@ -1,6 +1,6 @@
 ---
 title: CS61C FA20 资源
-date: 2024-07-23 18:05:51
+published: 2024-07-23T18:05:51+08:00
 tags: [UCBerkeley, 体系结构, cs61c]
 ---
 

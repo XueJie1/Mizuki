@@ -1,6 +1,6 @@
 ---
 title: 安装 PostmarketOS 后提示存储空间不足（low disk space）的解决方法 
-date: 2023-10-10 17:06:49
+published: 2023-10-10T17:06:49+08:00
 tags: [Linux, PostmarketOS, Redmi]
 ---
 第一次写教程，有哪里不对的还请指出。
@@ -8,7 +8,7 @@ tags: [Linux, PostmarketOS, Redmi]
 我在红米 2 安装 PostmarketOS 后通知栏提示存储空间不足。
 
 命令行执行`df -h`输出如下：
-```BASH
+```bash
 xiaomi-wt88047:~$ df -h
 Filesystem                Size      Used Available Use% Mounted on
 /dev/dm-1                 2.0G      1.8G     77.0M  96% /
@@ -50,7 +50,7 @@ Adam Thiede @adamthiede 的回答
 
 ## 1. 使用`lsblk`列出块设备信息
 命令行输入`lsblk`，得到以下结果：
-```BASH
+```bash
 xiaomi-wt88047:~$ lsblk
 NAME         MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
 mmcblk1      179:0    0 14.8G  0 disk 
@@ -98,7 +98,7 @@ zram0        253:0    0  1.4G  0 disk [SWAP]
 ### 进入`fdisk`
 控制台输入：`sudo fdisk /dev/（此处填很大的分区）`，对于我的手机来说就是 `sudo fdisk /dev/mmcblk0p30`
 输入后就进入了fdisk分区工具，输出如下：
-```BASH
+```bash
 xiaomi-wt88047:~$ sudo fdisk /dev/mmcblk0
 
 Welcome to fdisk (util-linux 2.38.1).
@@ -114,7 +114,7 @@ Command (m for help):
 ```
 ### 查看分区情况
 输入`p`查看分区情况，输出如下：
-```BASH
+```bash
 Command (m for help): p
 
 Disk /dev/mmcblk0p30: 12.93 GiB, 13878935040 bytes, 27107295 sectors
@@ -131,12 +131,12 @@ Device            Boot  Start     End Sectors  Size Id Type
 记住第二个分区的`Start`的数值，这里是`499712`。
 ### 删除分区
 输入`d`以进入删除分区的功能，输出如下：
-```BASH
+```bash
 Command (m for help): d
 Partition number (1,2, default 2):
 ```
 它会提示我们输入要删除的分区号，我要删除第二个分区，输入2，输出如下：
-```BASH
+```bash
 Partition number (1,2, default 2): 2
 
 Partition 2 has been deleted.
@@ -144,7 +144,7 @@ Partition 2 has been deleted.
 删除成功。
 ### 新建分区
 输入`n`以进入新建分区的功能，输出如下：
-```BASH
+```bash
 Command (m for help): n
 Partition type
    p   primary (1 primary, 0 extended, 3 free)
@@ -153,13 +153,13 @@ Select (default p):
 ```
 它提示我们要新建分区的类型，这里输入`p`，即主分区(primary)。
 接下来需要分别输入分区号、扇区起始位置、扇区终止位置，其中扇区起始位置是上面[查看分区情况](#查看分区情况)记下的`Start`数值，为`499712`。
-```BASH
+```bash
 Partition number (2-4, default 2): 
 First sector (499712-27107294, default 499712): 
 Last sector, +/-sectors or +/-size{K,M,G,T,P} (499712-27107294, default 27107294):
 ```
 输入完成后输出：
-```BASH
+```bash
 Created a new partition 2 of type 'Linux' and of size 12.7 GiB.
 Partition #2 contains a ext4 signature.
 
@@ -179,7 +179,7 @@ Do you want to remove the signature? [Y]es/[N]o:
 ### 查看效果
 控制台输入`df -h`
 输出：
-```BASH
+```bash
 xiaomi-wt88047:~$ df -h
 Filesystem                Size      Used Available Use% Mounted on
 /dev/dm-1                12.5G      1.8G     10.1G  15% /

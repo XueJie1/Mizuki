@@ -1,8 +1,8 @@
 ---
 title: 电工学/电路 - 结点电压法
-date: 2023-12-19 12:46:56
+published: 2023-12-19T12:46:56+08:00
 tags: [电路, 电工学, 学习]
-author: Xue Jie
+author: XueJie
 ---
 
 [节点电压法 (文章) | 直流电路分析 | 可汗学院 (khanacademy.org)](https://zh.khanacademy.org/science/electrical-engineering/ee-circuit-analysis-topic/ee-dc-circuit-analysis/a/ee-node-voltage-method)
@@ -37,7 +37,7 @@ $$ (e_1-0)G_2 $$
 $$(e_1-V_0)G_1+(e_1-e_2)G_3+(e_1-0)G_2=0$$
 同理可得$e_2$的KCL方程：
 $$(e_2-e_1)G_3+(e_2-V_0)G_4+(e_2)G_5=I_1$$
-$$流出的=流入的$$
+**流出的 = 流入的**
 ### 求解方程
 两个方程，$e_1$和$e_2$是未知数，所以得把两个未知数提出来，常量写到右边（写成$ax_1+bx_2=c$）：
 $$(G_1+G_2+G_3)e_1-G_3e_2=V_0G_1$$
