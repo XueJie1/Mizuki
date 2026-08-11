@@ -106,7 +106,7 @@ export async function GET({
 
 	// Avatar + icon: still read from disk (small assets)
 	const avatarBuffer = fs.readFileSync(`./src/${profileConfig.avatar}`);
-	const avatarBase64 = `data:image/png;base64,${avatarBuffer.toString("base64")}`;
+	const avatarBase64 = `data:image/jpeg;base64,${avatarBuffer.toString("base64")}`;
 
 	let iconPath = "./public/favicon/favicon.ico";
 	if (siteConfig.favicon.length > 0) {

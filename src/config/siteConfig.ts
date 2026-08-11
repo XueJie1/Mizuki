@@ -37,7 +37,7 @@ export const siteConfig: SiteConfig = {
 		// 顶栏标题文本
 		text: "XueJie 的博客",
 		// 与浏览器 favicon 使用同一张图片
-		icon: "/favicon/elysia.jpg",
+		icon: "/favicon/asahina-mikuru.png",
 		// 网站Logo图片路径
 		logo: "assets/home/default-logo.webp",
 	},
@@ -185,8 +185,8 @@ export const siteConfig: SiteConfig = {
 	generateOgImages: false, // 启用生成OpenGraph图片功能,注意开启后要渲染很长时间，不建议本地调试的时候开启
 	favicon: [
 		{
-			src: "/favicon/elysia.jpg",
-			sizes: "840x840",
+			src: "/favicon/asahina-mikuru.png",
+			sizes: "400x400",
 		},
 	],
 
