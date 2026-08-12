@@ -37,7 +37,7 @@ export const siteConfig: SiteConfig = {
 		// 顶栏标题文本
 		text: "XueJie 的博客",
 		// 与浏览器 favicon 使用同一张图片
-		icon: "/favicon/asahina-mikuru.png",
+		icon: "/favicon/asahina-mikuru.png?v=1",
 		// 网站Logo图片路径
 		logo: "assets/home/default-logo.webp",
 	},
