@@ -1,0 +1,63 @@
+name: Sync Upstream
+
+on:
+  schedule:
+    # 每天 03:00 UTC（北京时间 11:00）检查上游是否有更新
+    - cron: "0 3 * * *"
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/matsuzaka-yuki/Mizuki.git
+
+      - name: Fetch upstream
+        run: git fetch upstream master
+
+      - name: Check if behind upstream
+        id: check
+        run: |
+          if git merge-base --is-ancestor upstream/master HEAD; then
+            echo "behind=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "behind=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Merge upstream into sync branch
+        if: steps.check.outputs.behind == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B sync-upstream
+          git merge upstream/master --no-edit
+          git push --force origin sync-upstream
+
+      - name: Open or update pull request
+        if: steps.check.outputs.behind == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="chore: sync upstream master"
+          body="自动同步上游 [matsuzaka-yuki/Mizuki](https://github.com/matsuzaka-yuki/Mizuki) 的最新提交。请检查冲突与构建结果后再合并。"
+          if gh pr view sync-upstream --json number >/dev/null 2>&1; then
+            gh pr edit sync-upstream --title "$title" --body "$body"
+          else
+            gh pr create --base master --head sync-upstream --title "$title" --body "$body"
+          fi
